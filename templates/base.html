@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TRS</title>
+    {% block head %}{% endblock %}
+  </head>
+  <body>
+    <div class="navbar">
+      <nav>
+        {% for item in nav.top %}
+          <a class="{{ 'active' if item.is_active else '' }}" href="{{ item.url }}">{{ item.label }}</a>
+        {% endfor %}
+      </nav>
+    </div>
+    {% block body %}{% endblock %}
+  </body>
+</html>
