@@ -38,6 +38,7 @@ h1{
   color: #034638;
 }
 
+/* File Upload styling */
 .input_container{
   border: 1px solid #e5e5e5;
   margin-top: 15px;
@@ -74,4 +75,49 @@ input[type=file]::file-selector-button:hover{
   background-color: #eee;
   border: 0px;
   border-left: 1px solid #e5e5e5;
+}
+
+/* Analysis Dashboard styling */
+.tab{
+  overflow: hidden;
+  border: 1px solid #e5e5e5;
+  background-color: #f1f1f1;
+}
+
+.tab button{
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: .3s;
+  font-size: 15px;
+  color: #034638;
+}
+
+.tab button:hover{
+  background-color: #ddd;
+}
+
+.tab button.active{
+  background-color: #ccc;
+}
+
+.tabcontent{
+  display: none;
+  padding: 6px 12px;
+  border: 1px solid #e5e5e5;
+  border-top: none;
+}
+
+.section-header{
+  padding: 4px;
+  margin-top: 10px;
+  font-weight: bold;
+  color: #034638;
+}
+
+.section-body{
+  padding: 10px 15px;
 }
