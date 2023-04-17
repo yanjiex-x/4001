@@ -1,61 +1,64 @@
-{% extends 'base.html' %}
+<!DOCTYPE html>
+<html>
+  {% extends 'base.html' %}
 
-{% block head %}{% endblock %}
+  {% block head %}{% endblock %}
 
-{% block body %}
-<h1>Automated VA Scan Result Analysis</h1>
-<form enctype="multipart/form-data" action="" method="post">
-  <label>Upload the CSV file here:</label>
-  <div class="input_container">
-    <input type="file" accept=".csv" name="fileUpload" id="fileUpload">
-    <input type="submit" name="submit" id="submit" value="Upload">
+  {% block body %}
+  <h1>Automated VA Scan Result Analysis</h1>
+  <form enctype="multipart/form-data" action="" method="post">
+    <label>Upload the CSV file here:</label>
+    <div class="input_container">
+      <input type="file" accept=".csv" name="fileUpload" id="fileUpload">
+      <input type="submit" name="submit" id="submit" value="Upload">
+    </div>
+  </form>
+
+  <p><b>File Uploaded: </b>{{ filename }}</p>
+
+  <div class="tab">
+    <button class="tablinks active" onclick="openCat(event, 'Solution')" id="defaultOpen">Solution</button>
+    <button class="tablinks" onclick="openCat(event, 'Host')">Host</button>
+    <button class="tablinks" onclick="openCat(event, 'Risk')">Risk</button>
   </div>
-</form>
 
-<p><b>File Uploaded: </b>{{ filename }}</p>
+  <div class="tabcontent" id="Solution">
+    {% for key, values in solutions.items() %}
+      <div class="section-header">
+        {{ key }}
+      </div>
+      <div class="section-body">
+        {% for i in values %}
+          <p>{{ i }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
 
-<div class="tab">
-  <button class="tablinks active" onclick="openCat(event, 'Solution')" id="defaultOpen">Solution</button>
-  <button class="tablinks" onclick="openCat(event, 'Host')">Host</button>
-  <button class="tablinks" onclick="openCat(event, 'Risk')">Risk</button>
-</div>
+  <div class="tabcontent" id="Host">
+    {% for key, values in hosts.items() %}
+      <div class="section-header">
+        {{ key }}
+      </div>
+      <div class="section-body">
+        {% for i in values %}
+          <p>{{ i }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
 
-<div class="tabcontent" id="Solution">
-  {% for key, values in solutions.items() %}
-    <div class="section-header">
-      {{ key }}
-    </div>
-    <div class="section-body">
-      {% for i in values %}
-        <p>{{ i }}</p>
-      {% endfor %}
-    </div>
-  {% endfor %}
-</div>
-
-<div class="tabcontent" id="Host">
-  {% for key, values in hosts.items() %}
-    <div class="section-header">
-      {{ key }}
-    </div>
-    <div class="section-body">
-      {% for i in values %}
-        <p>{{ i }}</p>
-      {% endfor %}
-    </div>
-  {% endfor %}
-</div>
-
-<div class="tabcontent" id="Risk">
-  {% for key, values in risks.items() %}
-    <div class="section-header">
-      {{ key }}
-    </div>
-    <div class="section-body">
-      {% for i in values %}
-        <p>{{ i }}</p>
-      {% endfor %}
-    </div>
-  {% endfor %}
-</div>
-{% endblock %}
+  <div class="tabcontent" id="Risk">
+    {% for key, values in risks.items() %}
+      <div class="section-header">
+        {{ key }}
+      </div>
+      <div class="section-body">
+        {% for i in values %}
+          <p>{{ i }}</p>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+  {% endblock %}
+</html>
