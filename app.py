@@ -64,6 +64,10 @@ def index():
     else:
         return render_template('index.html')
 
+@app.route('/scripts')
+def scripts():
+    return render_template('scripts.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
