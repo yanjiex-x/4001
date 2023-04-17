@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+  {% extends 'base.html' %}
+
+  {% block head %}{% endblock %}
+
+  {% block body %}
+  <h1>Mitigation Scripts</h1>
+
+  <div class="alert alert-info">
+    <strong>Note:</strong> These scripts are to be executed in Windows Powershell or Windows Command Prompt.
+  </div>
+
+  <div class="alert alert-info">
+    <strong>Note:</strong> Scripts with extension <b>.ps1</b> is to be executed in Windows Powershell only.
+  </div>
+
+  <table class="scripts">
+    <tr>
+      <th>Name</th>
+      <th></th>
+      <th>User Guide</th>
+    </tr>
+
+    <!-- Windows Applications -->
+    <tr>
+      <td>
+        <ul>
+          <li><a href="{{ url_for('static', filename='scripts/microsoftapps.ps1') }}" download>microsoftapps.ps1</a></li>
+          <br>or<br><br>
+          <li><a href="{{ url_for('static', filename='scripts/microsoftapps.bat') }}" download>microsoftapps.bat</a></li>
+        </ul>
+      </td>
+
+      <td>
+        Script to update all Microsoft Applications.<br><br>
+        <small>
+          Note: Not all applications can be updated.<br>
+          The <b>winget</b> tool is only supported on Windows 10<br>
+          1709 or later.
+        </small>
+      </td>
+
+      <td>
+        <p>For first-time <b>winget</b> users, enter the following command:<p>
+        <p id="command">winget upgrade</p><br>
+        <u>Windows Powershell</u><br>
+        To execute the script, enter:
+        <p id="command">./microsoftapps.ps1</p> or
+        <p id="command">./microsoftapps.bat</p><br>
+        <u>Windows Command Prompt</u><br>
+        To execute the script, enter:
+        <p id="command">microsoftapps.bat</p>
+      </td>
+    </tr>
+
+    <!-- Firefox -->
+    <tr>
+      <td>
+        <ul>
+          <li><a href="{{ url_for('static', filename='scripts/firefox.bat') }}" download>firefox.bat</a></li>
+        </ul>
+      </td>
+
+      <td>
+        Script to update FireFox.
+      </td>
+
+      <td>
+        <u>Windows Command Prompt</u><br>
+        To execute the script, enter:
+        <p id="command">firefox.bat</p>
+      </td>
+    </tr>
+
+    <!-- Google Chrome -->
+    <tr>
+      <td>
+        <ul>
+          <li><a href="{{ url_for('static', filename='scripts/googlechrome.ps1') }}" download>googlechrome.ps1</a></li>
+          <br>or<br><br>
+          <li><a href="{{ url_for('static', filename='scripts/googlechrome.bat') }}" download>googlechrome.bat</a></li>
+        </ul>
+      </td>
+
+      <td>
+        Script to update Google Chrome.
+      </td>
+
+      <td>
+        <u>Windows Powershell</u><br>
+        To execute the script, enter:
+        <p id="command">./googlechrome.ps1</p> or
+        <p id="command">./googlechrome.bat</p><br>
+        <u>Windows Command Prompt</u><br>
+        To execute the script, enter:
+        <p id="command">googlechrome.bat</p>
+      </td>
+    </tr>
+
+    <!-- Adobe Flash Player -->
+    <tr>
+      <td>
+        <ul>
+          <li><a href="{{ url_for('static', filename='scripts/adobeflash.ps1') }}" download>adobeflash.ps1</a></li>
+        </ul>
+      </td>
+
+      <td>
+        Script to remove Adobe Flash Player.
+      </td>
+
+      <td>
+        <u>Windows Powershell</u><br>
+        To execute the script, enter:
+        <p id="command">./adobeflash.ps1</p>
+      </td>
+    </tr>
+  </table>
+  {% endblock %}
+</html>
