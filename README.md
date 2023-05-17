@@ -2,7 +2,7 @@
 
 ## Pre-Requisites
 
-### (Optional) Activate Virtual Environment (Windows)
+### (Recommended) Activate Virtual Environment (Windows)
 
 ```
 python -m venv env
