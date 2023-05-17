@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+
+  </head>
+  <body>
+    <ol>
+      <!-- Section 1: Introduction -->
+      <li>
+        <h1>Introduction</h1>
+        <ol>
+          <li>
+              {{ companyname }} ("{{ companyalias }}") has engaged TRS Forensics Pte Ltd ("TRS") to assist in enhancing
+              both its data protection practices and cybersecurity posture.
+          </li>
+          <li>
+            Vulnerability assessment is an inspection of the potential points of system exploits
+            and vulnerabilities in the application. TRS will gather evidence for each finding,
+            assess the risk level and potential implications of each threat, and propose
+            the corresponding recommendations for remediation.
+          </li>
+          <li>
+            Vulnerability assessment is based on the results of scanning office computers at
+            {{ companyname }} on the dates between {{ startdate }} and {{ enddate }} using Tenable.io agent.
+          </li>
+          <li>
+            This vulnerability scan covered a total of {{ num_hosts }} staff computers. (Detailed
+            reports are attached.)
+          </li>
+          <h2>Vulnerability Status as of {{ startdate }}</h2>
+          <li>
+            The vulnerability assessment revealed the following issues:
+            <ol>
+              <li>End of Support Software to be Upgraded (more details in paragraph x).</li>
+              <li>Staff computers with unapplied security patches (more details in paragrpah x)
+              and software updates from Microsoft and other third-party application vendors
+              (more details in paragraph x).</li>
+              <li>Windows update reboot required (more details in paragraph x).</li>
+              <li>Secure Boot DBX to be updated (more details in paragraph x).</li>
+            </ol>
+          </li>
+          <li>
+            We recommend the following actions:
+            <ol>
+              <li>Upgrade end-of-life/end-of-support software.</li>
+              <li>Apply all third-party patches and/or renew the third-party apps with newer
+              version.</li>
+              <li>Apply all Microsoft Security and Software patches to correct the detected
+              vulnerabilities.</li>
+              <li>Ensure that Secure Boot DBX is updated.</li>
+            </ol>
+          </li>
+          <li>
+            The majority of issues found may be solved by deploying an automated patch management
+            solution such as <a href="https://www.manageengine.com/patch-management">https://www.manageengine.com/patch-management</a>.
+            Such automated tools make periodic and regular software patch application more
+            productive, provide corresponding activity logs and notifications for exception
+            situations, and reduce human intervention.
+          </li>
+          <h2><u><i>Conclusion</i></u></h2>
+          <li>Vulnerabilities rated Critical, High, or Medium should be fixed to improve
+          the security posture of the endpoints.</li>
+        </ol>
+      </li>
+
+      <!-- Section 2 -->
+      {% if 'support' in '\t'.join(sol_list) or 'life' in '\t'.join(sol_list) %}
+        <li class="new-page">
+          <h1>End-of-support Software to be Upgraded</h1>
+          {% for key, values in solutions.items() %}
+            {% if 'support' in key or 'life' in key %}
+            <ol>
+              <li>
+                The vulnerability scan revealed that the following host(s):
+                <table>
+                  <tr>
+                    <th>S/N</th>
+                    <th>Computer Name</th>
+                  </tr>
+                  {% for i in values %}
+                  <tr>
+                    <td>{{ values.index(i) + 1 }}</td>
+                    <td>{{ i }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+                {{ companyalias }} should {{ key[0].lower() + key[1:] }}
+                <br><br>
+                <span class="criticality">Rate:
+                  {% for k, v in risks.items() %}
+                    {% for x in v %}
+                      {% if x == key %}
+                        {{ k }}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </span>
+              </li>
+              </ol>
+            {% endif %}
+          {% endfor %}
+        </li>
+      {% endif %}
+
+      <!-- Section 3 -->
+      {% if 'Upgrade' in '\t'.join(sol_list) %}
+        <li class="new-page">
+          <h1>Updates/New versions for Microsoft/Third-party Apps</h1>
+          {% for key, values in solutions.items() %}
+            {% if 'Upgrade' in key %}
+              {% if 'support' not in key and 'life' not in key %}
+              <ol>
+                <li>
+                  The vulnerability scan revealed that the following host(s):
+                  <table>
+                    <tr>
+                      <th>S/N</th>
+                      <th>Computer Name</th>
+                    </tr>
+                    {% for i in values %}
+                    <tr>
+                      <td>{{ values.index(i) + 1 }}</td>
+                      <td>{{ i }}</td>
+                    </tr>
+                    {% endfor %}
+                  </table>
+                  {{ companyalias }} should {{ key[0].lower() + key[1:] }}
+                  <br><br>
+                  <span class="criticality">Rate:
+                    {% for k, v in risks.items() %}
+                      {% for x in v %}
+                        {% if x == key %}
+                          {{ k }}
+                        {% endif %}
+                      {% endfor %}
+                    {% endfor %}
+                  </span>
+                </li>
+              </ol>
+              {% endif %}
+            {% endif %}
+          {% endfor %}
+        </li>
+      {% endif %}
+
+      <!-- Other sections -->
+      <li class="new-page">
+        <h1>{Header}</h1>
+        {% for key, values in solutions.items() %}
+          {% if 'Upgrade' not in key and 'N/A' not in key %}
+            <ol>
+              <li>
+                The vulnerability scan revealed that the following host(s):
+                <table>
+                  <tr>
+                    <th>S/N</th>
+                    <th>Computer Name</th>
+                  </tr>
+                  {% for i in values %}
+                  <tr>
+                    <td>{{ values.index(i) + 1 }}</td>
+                    <td>{{ i }}</td>
+                  </tr>
+                  {% endfor %}
+                </table>
+                {{ companyalias }} should {{ key[0].lower() + key[1:] }}
+                <br><br>
+                <p class="criticality">Rate:
+                  {% for k, v in risks.items() %}
+                    {% for x in v %}
+                      {% if x == key %}
+                        {{ k }}
+                      {% endif %}
+                    {% endfor %}
+                  {% endfor %}
+                </p>
+              </li>
+            </ol>
+          {% endif %}
+        {% endfor %}
+      </li>
+    </ol>
+
+  </body>
+</html>
