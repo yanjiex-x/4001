@@ -1,12 +1,12 @@
-<!DOCTYPE html>
-<html>
-  {% extends 'base.html' %}
 
-  {% block head %}{% endblock %}
+{% extends 'base.html' %}
 
-  {% block body %}
-  <h1>Automated VA Scan Result Analysis</h1>
-  <form enctype="multipart/form-data" action="" method="post">
+{% block head %}{% endblock %}
+
+{% block body %}
+  <h1>Result Analysis</h1>
+  <form enctype="multipart/form-data" action="{{ url_for('index') }}" method="post">
+    {{ form.csrf_token }}
     <label>Upload the CSV file here:</label>
     <div class="input_container">
       <input type="file" accept=".csv" name="fileUpload" id="fileUpload">
@@ -16,49 +16,93 @@
 
   <p><b>File Uploaded: </b>{{ filename }}</p>
 
+  <button type="button" class="btn btn-outline-secondary" id="generate_report" data-bs-toggle="collapse" data-bs-target="#reportDetails" aria-expanded="false" aria-controls="reportDetails">Generate Report</button>
+  {% for msg in get_flashed_messages() %}
+    <div class="alert alert-danger error">
+      <p>Please take note that the end date should not be earlier than the start date.</p>
+    </div>
+  {% endfor %}
+  <div class="collapse" id="reportDetails">
+    <form enctype="multipart/form-data" action="{{ url_for('report') }}" method="post">
+      {{ form.csrf_token }}
+      <div class="card card-body">
+        <h2>Report Details</h2>
+        <div class="form-inline">
+          <label for="companyname">Company Name:</label>
+          {{ form.companyname }}
+          <label for="companyalias">also known as</label>
+          {{ form.companyalias }}
+        </div>
+        <div class="form-inline">
+          <label for="startdate">Start Date:</label>
+          {{ form.startdate }}
+          <label for="enddate">End Date:</label>
+          {{ form.enddate }}
+        </div>
+        <div class="form-inline">
+          <label for="hostnum">Number of Hosts Scanned:</label>
+          {{ form.hostnum }}
+        </div>
+        <input class="btn btn-outline-secondary" type="submit" value="Generate Report">
+      </div>
+    </form>
+  </div>
+
   <div class="tab">
     <button class="tablinks active" onclick="openCat(event, 'Solution')" id="defaultOpen">Solution</button>
     <button class="tablinks" onclick="openCat(event, 'Host')">Host</button>
     <button class="tablinks" onclick="openCat(event, 'Risk')">Risk</button>
   </div>
 
-  <div class="tabcontent" id="Solution">
-    {% for key, values in solutions.items() %}
-      <div class="section-header">
-        {{ key }}
-      </div>
-      <div class="section-body">
-        {% for i in values %}
-          <p>{{ i }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
+  <div id="Solution" class="tabcontent">
+    <table>
+      {% for key, values in solutions.items() %}
+        {% if key != 'N/A' %}
+          <tr>
+            <th>{{ key }}</th>
+            <td>
+              {% for i in values %}
+                <p>{{ i }}</p>
+              {% endfor %}
+            </td>
+          </tr>
+        {% endif %}
+      {% endfor %}
+    </table>
   </div>
 
-  <div class="tabcontent" id="Host">
-    {% for key, values in hosts.items() %}
-      <div class="section-header">
-        {{ key }}
-      </div>
-      <div class="section-body">
-        {% for i in values %}
-          <p>{{ i }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
+  <div id="Host" class="tabcontent">
+    <table>
+      {% for key, values in hosts.items() %}
+        <tr>
+          <th>{{ key }}</th>
+          <td>
+            {% for i in values %}
+              {% if i != 'N/A' %}
+                <p>{{ i }}</p>
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
   </div>
 
-  <div class="tabcontent" id="Risk">
-    {% for key, values in risks.items() %}
-      <div class="section-header">
-        {{ key }}
-      </div>
-      <div class="section-body">
-        {% for i in values %}
-          <p>{{ i }}</p>
-        {% endfor %}
-      </div>
-    {% endfor %}
+  <div id="Risk" class="tabcontent">
+    <table>
+      {% for key, values in risks.items() %}
+        <tr>
+          <th>{{ key }}</th>
+          <td>
+            {% for i in values %}
+              {% if i != 'N/A' %}
+                <p>{{ i }}</p>
+              {% endif %}
+            {% endfor %}
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
   </div>
-  {% endblock %}
-</html>
+
+{% endblock %}
