@@ -1,3 +1,7 @@
 Flask
 Pandas
 Flask-Navigation
+Flask-WTF
+Pdfkit
+uuid
+Datetime
