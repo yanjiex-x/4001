@@ -1,0 +1,74 @@
+/* Report formatting */
+
+.new-page{
+  page-break-before: always;
+}
+
+body{
+  font-size: 18px;
+  font-family: 'Garamond', serif;
+}
+
+h1{
+  color: #034638;
+  font-size: 18px;
+}
+
+h2{
+  color: #9E652E;
+  font-size: 18px;
+  margin-left: 40px;
+}
+
+ol{
+  list-style-type: none;
+  counter-reset: item;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+li{
+  display: table;
+  counter-increment: item;
+  margin-bottom: 1em;
+  width: 100%;
+}
+
+li:before{
+  content: counters(item, ".") ". ";
+  display: table-cell;
+  padding-right: 0.6em;
+}
+
+li ol > li{
+  margin-top: 1em;
+}
+
+li li:before{
+  content: counters(item, ".") ". ";
+}
+
+table{
+  border-collapse: collapse;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+table, th, td{
+  border: thin solid black;
+  padding: 12px;
+}
+
+th{
+  color: #034638;
+}
+
+.criticality{
+  border: thin solid;
+  padding: 5px;
+  float: right;
+  margin-right: 10px;
+}
